@@ -15,8 +15,7 @@ public:
         if (!initString.empty()) {
             buffer = new char [initString.length() + 1];
             strcpy(buffer, initString.c_str());
-            cout << "buffer points to: 0x" << hex;
-            cout << (unsigned int*)buffer << endl;
+            cout << "buffer points to: 0x" << hex << (unsigned int*)buffer << endl;
         } else {
             buffer = NULL;
         }

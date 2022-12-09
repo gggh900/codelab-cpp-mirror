@@ -8,10 +8,12 @@ private:
     char * buffer;
 
 public:
-    MyString(string * initString) {
-        if (initString != NULL) {
-            buffer = new char [strlen(initString) + 1];
-            strcpy(buffer, initString);
+    MyString(const char * pInitString) {
+        string initString = pInitString;
+        if (!initString.empty()) {
+            buffer = new char\
+             [initString.length() + 1];
+            strcpy(buffer, initString.c_str());
         } else {
             buffer = NULL;
         }

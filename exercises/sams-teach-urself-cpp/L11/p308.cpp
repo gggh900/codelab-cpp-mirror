@@ -4,6 +4,8 @@ using namespace std;
 class Fish {
 public:
     virtual void Swim() {
+    // comment above and uncomment below to remove polymorphic behavior.
+    //void Swim() {
         cout << "Fish swims!" << endl;
     }    
 };

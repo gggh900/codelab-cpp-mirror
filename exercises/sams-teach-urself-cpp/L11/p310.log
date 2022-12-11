@@ -1,0 +1,11 @@
+Allocating a Tuna on the free store:
+Constructed Fish.
+Constructed Tuna.
+Deleting the Tuna: 
+Destructed Fish.
+Instantiating a Tuna on the stack:
+Constructed Fish.
+Constructed Tuna.
+Automatic destruction as it goes out of scope.
+Destructed Tuna.
+Destructed Fish.

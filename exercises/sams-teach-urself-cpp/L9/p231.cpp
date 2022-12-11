@@ -1,3 +1,6 @@
+// Same as p229 however, default value is defined for constructor parameters so that
+// Human binary("Binary") can be compiled which is missing to supply second parameter.
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -25,4 +28,5 @@ int main() {
     Human binary("Binary");
     firstMan.IntroduceSelf();
     firstWoman.IntroduceSelf();
+    binary.IntroduceSelf();
 }

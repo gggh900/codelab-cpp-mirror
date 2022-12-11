@@ -1,3 +1,6 @@
+// Plain class implementation with constructor defined. binary is missing second init parameter.
+// Uncomment 'Human binary("Binary"); to cause failure.
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -22,7 +25,7 @@ public:
 int main() {
     Human firstMan("Adam", 25);
     Human firstWoman("Eve", 28);
-    Human binary("Binary");
+//  Human binary("Binary");
     firstMan.IntroduceSelf();
     firstWoman.IntroduceSelf();
 }

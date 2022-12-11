@@ -1,4 +1,4 @@
-// should runtime crash when compiling and run because copy constructor did not implement and copied char buffer
+// Should runtime crash whencompiling and run because copy constructor did not implement and copied char buffer
 // so when second copy's destructor is called, pointer to buffer was already nulL (after 1st copy's destructor) 
 // so attempted to deallocate already deallocated char buffer.
 

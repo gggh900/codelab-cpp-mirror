@@ -1,3 +1,6 @@
+// Destructor implemented, needed because constructor creates buffer object and 
+// needs deallocation during desctruction to prevent memory leak.
+
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -11,8 +14,7 @@ public:
     MyString(const char * pInitString) {
         string initString = pInitString;
         if (!initString.empty()) {
-            buffer = new char\
-             [initString.length() + 1];
+            buffer = new char [initString.length() + 1];
             strcpy(buffer, initString.c_str());
         } else {
             buffer = NULL;

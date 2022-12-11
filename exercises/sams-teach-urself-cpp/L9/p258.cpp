@@ -1,3 +1,5 @@
+// Friend function implementation: DisplayAge.
+
 #include <iostream>
 #include <string>
 

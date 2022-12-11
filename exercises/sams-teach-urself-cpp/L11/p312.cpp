@@ -1,7 +1,4 @@
-// Two types of initialization of Tuna. 1. free store does not destruct the Tuna part 
-// 2. stack: which properly destruct both Fish and Tuna through their respective desctructors.
-// It means desctructor of the derived class is not called when pointed by base class. To avoid
-// use p312.cpp
+// Fixes problem of derived class's destructor not being called.
 
 #include <iostream>
 using namespace std;
@@ -12,7 +9,7 @@ public:
         cout << "Constructed Fish." << endl;
     }
 
-    ~Fish() {
+    virtual ~Fish() {
         cout << "Destructed Fish." << endl;
     }
 };

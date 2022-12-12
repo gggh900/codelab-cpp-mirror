@@ -94,14 +94,14 @@ main () {
             cout << "===============================================";
             for (int i = 0 ; i < NO_OPS; i ++ ) {
                 for (auto element = benchmark_vector[i].cbegin() ; element != benchmark_vector[i].cend(); element ++ )
-                        std::cout << "Data size: " << benchmark_vector[i]->first <<  "Duration = " benchmark_vector[i]->second << "µs (" << ms_fractional << "ms)" << endl;
+                        std::cout << "Data size: " << element->first <<  "Duration = " << element->second << "ms)" << endl;
             }
             break;
         case DATATYPE_SET:
             cout << "===============================================";
             for (int i = 0 ; i < NO_OPS; i ++ ) {
                 for (auto element = benchmark_set[i].cbegin() ; element != benchmark_vector[i].cend(); element ++ )
-                        std::cout << "Data size: " << benchmark_vector[i]->first <<  "Duration = " benchmark_vector[i]->second << "µs (" << ms_fractional << "ms)" << endl;
+                        std::cout << "Data size: " << element->first <<  "Duration = " <<  element->second << "ms)" << endl;
             }
         }
 }

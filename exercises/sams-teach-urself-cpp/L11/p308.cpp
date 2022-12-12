@@ -1,3 +1,5 @@
+// polymorphism, plain example.
+
 #include <iostream>
 using namespace std;
 

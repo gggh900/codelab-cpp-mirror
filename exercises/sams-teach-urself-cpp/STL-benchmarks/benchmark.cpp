@@ -3,8 +3,8 @@
 #include <vector>
 #include <set>
 #include <deque>
-
 #include <list> 
+
 #include <map>
 #include <algorithm>
 #include <iomanip>
@@ -19,7 +19,8 @@ int main (void) {
     const int DATATYPE_VECTOR = 0;
     const int DATATYPE_SET = 1;
     const int DATATYPE_DEQUE = 2;
-    const int NO_DATATYPES = 3;
+    const int DATATYPE_LIST = 3;
+    const int NO_DATATYPES = 4;
 
     const int DEBUG = 0;
     const int entriesPerLine = 2;
@@ -31,12 +32,13 @@ int main (void) {
     vector <map<int, float>>benchmark_vector;
     vector <map<int, float>>benchmark_set;
     vector <map<int, float>>benchmark_deque;
+    vector <map<int, float>>benchmark_list;
     
     vector<int> ops={OP_INSERT, OP_FIND};
     vector<string> op_names={"Insert", "Find"};
 
-    vector<int> datatypes={DATATYPE_VECTOR, DATATYPE_SET, DATATYPE_DEQUE};
-    vector<string> datatype_names={"vector", "set", "deque"};
+    vector<int> datatypes={DATATYPE_VECTOR, DATATYPE_SET, DATATYPE_DEQUE, DATATYPE_LIST};
+    vector<string> datatype_names={"vector", "set", "deque", "list"};
 
     int currOp;
     int currDataType;
@@ -60,6 +62,7 @@ int main (void) {
                 vector<int>data1;
                 set<int> data2;
                 deque<int> data3;
+                list<int> data4;
 
                 switch(currOp) {
                     case OP_INSERT:
@@ -75,6 +78,10 @@ int main (void) {
                             case DATATYPE_DEQUE:
                                 for (int j = 0; j < data_size[i]; j++ )
                                     data3.push_back(rand());
+                            break;
+                            case DATATYPE_LIST:
+                                for (int j = 0; j < data_size[i]; j++ )
+                                    data4.push_back(rand());
                             break;
                          }
                     break;
@@ -92,6 +99,10 @@ int main (void) {
                             case DATATYPE_DEQUE:
                                 for (int j = 0; j < data_size[i]; j++ )
                                     find(data3.begin(), data3.end(), rand() % data_size[i]);
+                                break;
+                            case DATATYPE_LIST:
+                                for (int j = 0; j < data_size[i]; j++ )
+                                    find(data4.begin(), data4.end(), rand() % data_size[i]);
                                 break;
                         }
                     break;
@@ -122,6 +133,9 @@ int main (void) {
                 case DATATYPE_DEQUE:
                     benchmark_deque.push_back(benchmark_tmp);
                     break;
+                case DATATYPE_LIST:
+                    benchmark_list.push_back(benchmark_tmp);
+                    break;
             }
         }
     }
@@ -140,6 +154,7 @@ int main (void) {
         auto element_vector = benchmark_vector[i].cbegin();
         auto element_set = benchmark_set[i].cbegin();
         auto element_deque = benchmark_deque[i].cbegin();
+        auto element_list = benchmark_list[i].cbegin();
 
         int counter = 0;
         while(true) {
@@ -149,17 +164,21 @@ int main (void) {
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_vector->first) + ": " + to_string(element_vector->second) + " ms." << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_set->first) + ": " + to_string(element_set->second) + " ms." << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_deque->first) + ": " + to_string(element_deque->second) + " ms." << \
+                setw(fieldWidth) << setiosflags(ios::left) << to_string(element_list->first) + ": " + to_string(element_list->second) + " ms." << \
                 endl;
 
             element_vector ++;
             element_set ++;
             element_deque ++;
+            element_list ++;
 
             if (element_vector == benchmark_vector[i].cend())
                 break;
             if (element_set == benchmark_set[i].cend())
                 break;
             if (element_deque == benchmark_deque[i].end())
+                break;
+            if (element_list == benchmark_list[i].end())
                 break;
             if (counter > 100) 
                 break;

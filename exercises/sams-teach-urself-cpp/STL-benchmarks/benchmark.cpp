@@ -35,7 +35,7 @@ int main (void) {
     vector<int> ops={OP_INSERT, OP_FIND};
     vector<string> op_names={"Insert", "Find"};
 
-    vector<int> datatypes={DATATYPE_VECTOR, DATATYPE_SET};
+    vector<int> datatypes={DATATYPE_VECTOR, DATATYPE_SET, DATATYPE_DEQUE};
     vector<string> datatype_names={"vector", "set", "deque"};
 
     int currOp;
@@ -81,8 +81,6 @@ int main (void) {
                     case OP_FIND:
                         switch(currDataType) {
                             case DATATYPE_VECTOR:
-                                //vector<int>::iterator it;
-
                                 for (int j = 0; j < data_size[i]; j++ )
                                     find(data1.begin(), data1.end(), rand() % data_size[i]);
                                 
@@ -110,7 +108,7 @@ int main (void) {
                
                 benchmark_tmp.insert(pair <int, float>(data_size[i], us.count()));
 
-                if (DEBUG)
+                if (DEBUG or 1)
                     cout << "benchmark_tmp size: " << benchmark_tmp.size() << endl;
             }                    
 
@@ -135,28 +133,27 @@ int main (void) {
         cout << "-----------------------------------------------" << endl;
         cout << "Benchmark times for op: " << op_names[i] << endl;
 
-        for (int i = 0 ; i < datatype_names.size() ; i++ )
-            cout <<  setw(fieldWidth) << setiosflags(ios::left) << datatype_names[i];
+        for (int j = 0 ; j < datatype_names.size() ; j++ )
+            cout <<  setw(fieldWidth) << setiosflags(ios::left) << datatype_names[j];
         cout << endl;
 
         auto element_vector = benchmark_vector[i].cbegin();
         auto element_set = benchmark_set[i].cbegin();
-        auto element_deque = benchmark_deque[i].begin();
+        auto element_deque = benchmark_deque[i].cbegin();
 
         int counter = 0;
         while(true) {
             cout << "counter: " << endl;
 
-            /*
             cout << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_vector->first) + ": " + to_string(element_vector->second) + " ms." << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_set->first) + ": " + to_string(element_set->second) + " ms." << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_deque->first) + ": " + to_string(element_deque->second) + " ms." << \
                 endl;
-            */
+
             element_vector ++;
             element_set ++;
-//          element_deque ++;
+            element_deque ++;
 
             if (element_vector == benchmark_vector[i].cend())
                 break;

@@ -4,18 +4,29 @@
 #include <set>
 #include <list> 
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
-#define     OP_INSERT 0
-#define     OP_FIND 1
-#define     NO_OPS 2
+/*
+#define OP_INSERT 0
+#define OP_FIND 1
+#define NO_OPS 2
+#define DATATYPE_VECTOR 0
+#define DATATYPE_SET 1
+#define NO_DATATYPES 2
+#define DEBUG 1
+*/
 
-#define     DATATYPE_VECTOR 0
-#define     DATATYPE_SET 1
-#define     NO_DATATYPES 2
-#define     DEBUG 1
-main () {
+int main (void) {
+    const int OP_INSERT = 0;
+    const int OP_FIND = 1;
+    const int NO_OPS = 2;
+    const int DATATYPE_VECTOR = 0;
+    const int DATATYPE_SET = 1;
+    const int NO_DATATYPES = 2;
+    const int DEBUG = 1;
+
     // insert 50000, 100000, 150000,200000
     int data_size[]={50000, 100000, 150000, 200000, 250000, 300000};
     vector <map<int, float>>benchmark_vector;
@@ -62,13 +73,16 @@ main () {
                     case OP_FIND:
                         switch(currDataType) {
                             case DATATYPE_VECTOR:
+                                //vector<int>::iterator it;
+
                                 for (int j = 0; j < data_size[i]; j++ )
-                                    data1.push_back(j);
-                            break;
+                                    find(data1.begin(), data1.end(), rand() % data_size[i]);
+                                
+                                break;
                             case DATATYPE_SET:
                                 for (int j = 0; j < data_size[i]; j++ )
-                                    data2.insert(j);
-                            break;
+                                    data2.find(rand() & data_size[i]);
+                                break;
                         }
                     break;
                 }

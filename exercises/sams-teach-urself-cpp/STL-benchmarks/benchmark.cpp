@@ -2,6 +2,8 @@
 #include <chrono>
 #include <vector>
 #include <set>
+#include <deque>
+
 #include <list> 
 #include <map>
 #include <algorithm>
@@ -13,23 +15,28 @@ int main (void) {
     const int OP_INSERT = 0;
     const int OP_FIND = 1;
     const int NO_OPS = 2;
+
     const int DATATYPE_VECTOR = 0;
     const int DATATYPE_SET = 1;
-    const int NO_DATATYPES = 2;
+    const int DATATYPE_DEQUE = 2;
+    const int NO_DATATYPES = 3;
+
     const int DEBUG = 0;
     const int entriesPerLine = 2;
     const int fieldWidth = 30;
 
-    // insert 50000, 100000, 150000,200000
+    // insert 50000, 100000, 150000, 200000
+
     int data_size[]={50000, 100000, 150000, 200000, 250000, 300000};
     vector <map<int, float>>benchmark_vector;
     vector <map<int, float>>benchmark_set;
-
+    vector <map<int, float>>benchmark_deque;
+    
     vector<int> ops={OP_INSERT, OP_FIND};
     vector<string> op_names={"Insert", "Find"};
 
     vector<int> datatypes={DATATYPE_VECTOR, DATATYPE_SET};
-    vector<string> datatype_names={"vector", "set"};
+    vector<string> datatype_names={"vector", "set", "deque"};
 
     int currOp;
     int currDataType;
@@ -52,6 +59,7 @@ int main (void) {
                 }
                 vector<int>data1;
                 set<int> data2;
+                deque<int> data3;
 
                 switch(currOp) {
                     case OP_INSERT:
@@ -63,6 +71,10 @@ int main (void) {
                             case DATATYPE_SET:
                                 for (int j = 0; j < data_size[i]; j++ )
                                     data2.insert(rand());
+                            break;
+                            case DATATYPE_DEQUE:
+                                for (int j = 0; j < data_size[i]; j++ )
+                                    data3.push_back(rand());
                             break;
                          }
                     break;
@@ -78,6 +90,10 @@ int main (void) {
                             case DATATYPE_SET:
                                 for (int j = 0; j < data_size[i]; j++ )
                                     data2.find(rand() & data_size[i]);
+                                break;
+                            case DATATYPE_DEQUE:
+                                for (int j = 0; j < data_size[i]; j++ )
+                                    find(data3.begin(), data3.end(), rand() % data_size[i]);
                                 break;
                         }
                     break;
@@ -105,9 +121,13 @@ int main (void) {
                 case DATATYPE_SET:
                     benchmark_set.push_back(benchmark_tmp);
                     break;
+                case DATATYPE_DEQUE:
+                    benchmark_deque.push_back(benchmark_tmp);
+                    break;
             }
         }
     }
+
     cout << "===============================================" << endl;
     for (int i = 0 ; i < NO_OPS; i ++ ) {
         if (DEBUG) 
@@ -115,23 +135,34 @@ int main (void) {
         cout << "-----------------------------------------------" << endl;
         cout << "Benchmark times for op: " << op_names[i] << endl;
 
-        for (int i = 0 ; i < entriesPerLine ; i++ )
+        for (int i = 0 ; i < datatype_names.size() ; i++ )
             cout <<  setw(fieldWidth) << setiosflags(ios::left) << datatype_names[i];
         cout << endl;
 
         auto element_vector = benchmark_vector[i].cbegin();
         auto element_set = benchmark_set[i].cbegin();
+        auto element_deque = benchmark_deque[i].begin();
 
         int counter = 0;
         while(true) {
+            cout << "counter: " << endl;
+
+            /*
             cout << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_vector->first) + ": " + to_string(element_vector->second) + " ms." << \
                 setw(fieldWidth) << setiosflags(ios::left) << to_string(element_set->first) + ": " + to_string(element_set->second) + " ms." << \
+                setw(fieldWidth) << setiosflags(ios::left) << to_string(element_deque->first) + ": " + to_string(element_deque->second) + " ms." << \
                 endl;
-            element_vector++;
+            */
+            element_vector ++;
             element_set ++;
+//          element_deque ++;
 
             if (element_vector == benchmark_vector[i].cend())
+                break;
+            if (element_set == benchmark_set[i].cend())
+                break;
+            if (element_deque == benchmark_deque[i].end())
                 break;
             if (counter > 100) 
                 break;

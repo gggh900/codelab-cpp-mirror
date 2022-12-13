@@ -27,7 +27,6 @@ main () {
 
     int currOp;
     int currDataType;
-    cout << "=========================================" << endl;
 
     map<int, float>benchmark_tmp;
 
@@ -35,14 +34,12 @@ main () {
         currDataType = datatypes[n];
         for (int m = 0; m < NO_OPS; m ++ ) {
             currOp = ops[m];
+            cout << "=========================================" << endl;
             cout << "Performing benchmark for data type: " << datatype_names[n] << ", operation: " << op_names[m] << endl;
             benchmark_tmp.clear();
             for (int i = 0 ; i < sizeof(data_size) / sizeof(int) ; i++ ) {
                 auto start = std::chrono::high_resolution_clock::now();
     
-                if (DEBUG) {
-                    cout << "benchmark_tmp size: " << benchmark_tmp.size() << endl;
-                }
                 cout << "-----------------------------------------" << endl;
                 cout << "Inserting data size: " << data_size[i] << endl;
 
@@ -82,11 +79,13 @@ main () {
                 auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration); // Milliseconds (as int)
                 const float ms_fractional = static_cast<float>(us.count()) / 1000;         // Milliseconds (as float)
     
-                if (DEBUG) { 
+                if (DEBUG) 
                     cout << "Inserting benchmark entries to benchmark_tmp: " << data_size[i] << ", " << us.count() << endl;
-                }
+               
                 benchmark_tmp.insert(pair <int, float>(data_size[i], us.count()));
-                cout << "benchmark_tmp size: " << benchmark_tmp.size() << endl;
+
+                if (DEBUG)
+                    cout << "benchmark_tmp size: " << benchmark_tmp.size() << endl;
             }                    
 
             switch(currDataType) {
@@ -101,18 +100,18 @@ main () {
     }
     cout << "===============================================" << endl;
     for (int i = 0 ; i < NO_OPS; i ++ ) {
-            if (DEBUG) 
-                cout << "benchmark_vector[i] size: " << benchmark_vector[i].size() << endl;
-                cout << "Benchmark times for op: " << op_names[i] << endl;
-            for (auto element = benchmark_vector[i].cbegin() ; element != benchmark_vector[i].cend(); element ++ )
-                   std::cout << "Data size: " << element->first <<  ", Duration = " << element->second << "ms)" << endl;
+        if (DEBUG) 
+            cout << "benchmark_vector[i] size: " << benchmark_vector[i].size() << endl;
+        cout << "Benchmark times for op: " << op_names[i] << endl;
+        for (auto element = benchmark_vector[i].cbegin() ; element != benchmark_vector[i].cend(); element ++ )
+            std::cout << "Data size: " << element->first <<  ", Duration = " << element->second << "ms)" << endl;
     }
-
-    /*
     cout << "===============================================" << endl;
     for (int i = 0 ; i < NO_OPS; i ++ ) {
+        if (DEBUG) 
+            cout << "benchmark_set[i] size: " << benchmark_set[i].size() << endl;
         cout << "Benchmark times for op: " << op_names[i] << endl;
-            for (auto element = benchmark_set[i].cbegin() ; element != benchmark_vector[i].cend(); element ++ )
-                std::cout << "Data size " << element->first <<  ": Duration = " <<  element->second << "ms)" << endl;
-    }*/
+        for (auto element = benchmark_set[i].cbegin() ; element != benchmark_set[i].cend(); element ++ )
+            std::cout << "Data size: " << element->first <<  ", Duration = " << element->second << "ms)" << endl;
+    }
 }

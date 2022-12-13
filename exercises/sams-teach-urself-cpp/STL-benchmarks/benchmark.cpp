@@ -24,8 +24,10 @@ int main (void) {
     int data_size[]={50000, 100000, 150000, 200000, 250000, 300000};
     vector <map<int, float>>benchmark_vector;
     vector <map<int, float>>benchmark_set;
+
     vector<int> ops={OP_INSERT, OP_FIND};
     vector<string> op_names={"Insert", "Find"};
+
     vector<int> datatypes={DATATYPE_VECTOR, DATATYPE_SET};
     vector<string> datatype_names={"vector", "set"};
 
@@ -56,11 +58,11 @@ int main (void) {
                         switch(currDataType) {
                             case DATATYPE_VECTOR:
                                 for (int j = 0; j < data_size[i]; j++ )
-                                    data1.push_back(j);
+                                    data1.push_back(rand());
                             break;
                             case DATATYPE_SET:
                                 for (int j = 0; j < data_size[i]; j++ )
-                                    data2.insert(j);
+                                    data2.insert(rand());
                             break;
                          }
                     break;

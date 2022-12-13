@@ -5,18 +5,9 @@
 #include <list> 
 #include <map>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
-
-/*
-#define OP_INSERT 0
-#define OP_FIND 1
-#define NO_OPS 2
-#define DATATYPE_VECTOR 0
-#define DATATYPE_SET 1
-#define NO_DATATYPES 2
-#define DEBUG 1
-*/
 
 int main (void) {
     const int OP_INSERT = 0;
@@ -25,7 +16,9 @@ int main (void) {
     const int DATATYPE_VECTOR = 0;
     const int DATATYPE_SET = 1;
     const int NO_DATATYPES = 2;
-    const int DEBUG = 1;
+    const int DEBUG = 0;
+    const int entriesPerLine = 2;
+    const int fieldWidth = 30;
 
     // insert 50000, 100000, 150000,200000
     int data_size[]={50000, 100000, 150000, 200000, 250000, 300000};
@@ -117,15 +110,29 @@ int main (void) {
         if (DEBUG) 
             cout << "benchmark_vector[i] size: " << benchmark_vector[i].size() << endl;
         cout << "Benchmark times for op: " << op_names[i] << endl;
-        for (auto element = benchmark_vector[i].cbegin() ; element != benchmark_vector[i].cend(); element ++ )
-            std::cout << "Data size: " << element->first <<  ", Duration = " << element->second << "ms)" << endl;
+
+        for (int i = 0 ; i < entriesPerLine ; i++ )
+            cout <<  setw(fieldWidth) << setiosflags(ios::left) << datatype_names[i];
+        cout << endl;
+
+        auto element_vector = benchmark_vector[i].cbegin();
+        auto element_set = benchmark_vector[i].cbegin();
+
+        int counter = 0;
+        while(true) {
+            cout << \
+                setw(fieldWidth) << setiosflags(ios::left) << to_string(element_vector->first) + ": " + to_string(element_vector->second) + " ms." << \
+                setw(fieldWidth) << setiosflags(ios::left) << to_string(element_set->first) + ": " + to_string(element_set->second) + " ms." << \
+                endl;
+            element_vector++;
+            element_set ++;
+
+            if (element_vector == benchmark_vector[i].cend())
+                break;
+            if (counter > 100) 
+                break;
+            counter++;
+        }
     }
-    cout << "===============================================" << endl;
-    for (int i = 0 ; i < NO_OPS; i ++ ) {
-        if (DEBUG) 
-            cout << "benchmark_set[i] size: " << benchmark_set[i].size() << endl;
-        cout << "Benchmark times for op: " << op_names[i] << endl;
-        for (auto element = benchmark_set[i].cbegin() ; element != benchmark_set[i].cend(); element ++ )
-            std::cout << "Data size: " << element->first <<  ", Duration = " << element->second << "ms)" << endl;
-    }
+    cout << endl;
 }

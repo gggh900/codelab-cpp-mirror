@@ -116,7 +116,7 @@ int main (void) {
         cout << endl;
 
         auto element_vector = benchmark_vector[i].cbegin();
-        auto element_set = benchmark_vector[i].cbegin();
+        auto element_set = benchmark_set[i].cbegin();
 
         int counter = 0;
         while(true) {

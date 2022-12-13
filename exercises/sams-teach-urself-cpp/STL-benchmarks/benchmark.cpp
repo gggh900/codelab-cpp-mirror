@@ -44,9 +44,10 @@ int main (void) {
             for (int i = 0 ; i < sizeof(data_size) / sizeof(int) ; i++ ) {
                 auto start = std::chrono::high_resolution_clock::now();
     
-                cout << "-----------------------------------------" << endl;
-                cout << "Inserting data size: " << data_size[i] << endl;
-
+                if (DEBUG) {
+                    cout << "-----------------------------------------" << endl;
+                    cout << "Inserting data size: " << data_size[i] << endl;
+                }
                 vector<int>data1;
                 set<int> data2;
 
@@ -109,6 +110,7 @@ int main (void) {
     for (int i = 0 ; i < NO_OPS; i ++ ) {
         if (DEBUG) 
             cout << "benchmark_vector[i] size: " << benchmark_vector[i].size() << endl;
+        cout << "-----------------------------------------------" << endl;
         cout << "Benchmark times for op: " << op_names[i] << endl;
 
         for (int i = 0 ; i < entriesPerLine ; i++ )

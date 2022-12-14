@@ -1,5 +1,6 @@
-// implements cout << operator. Uncomment member function "operator const char *" to deliberate cause
-// compile error with "cout << holiday".
+// Using smart pointer, which automatically implements * and -> operators, we are able to use
+// those operators without explicitly implementing in the Date class here.
+
 #include <iostream>
 #include <sstream>
 #include <string>

@@ -101,8 +101,8 @@ void printNTriples(int n) {
     }
 }
 
-Susp0<int> sum2(x,y) {
-    return x + y;
+int sum2(int x, int y) {
+    return x * y * 100;
 }
 int main() {
 
@@ -112,14 +112,36 @@ int main() {
     }*/
     int x = 2;
     int y = 3;
+    int z = 4;
+ 
+       
+    printf("Using Susp0 with non-lambda regular function...\n");
 
+/*lazy_eval.cpp:119:36: error: conversion from ‘int(int, int)’ to non-scalar type ‘std::function<int()>’ requested
+     std::function<int()> sum2std = sum2;
+    sum2: int(int,int)->std::function<int()>
+*/
+
+    std::function<int(int, int)> sum2std = sum2;
+    //printf("sum2std: %d.\n", sum2std(2, 10));
+    Susp0<int> sum2_instance(sum2std);
+        
+    printf("---------------------\n");
     printf("Creating Susp0 lambda...\n");
-    Susp0<int> sum0([x,y]() { return x + y * 2; });
+    Susp0<int> sum0_instance([x,y,z]() { return x + y * z; });
+
+    /*
+    auto add = [] (int a, int b) {
+     cout << "Sum = " << a + b;
+    };*/
+
     printf("Calling sum.lambda...\n");
-    int z0 = sum0.get();
+    int z0 = sum0_instance.get();
     printf("z0: %d.\n", z0);
+
     printf("---------------------\n");
     printf("Creating Susp lambda...\n");
+
 
     /* creates instances of Susp class with type int.
     name of object instantiated is same.
@@ -128,10 +150,12 @@ int main() {
     For same example but using simpler type see helper_class_instantiation.cpp where class constructor is called 
     the same fashion with initializing value: T1 val(100); where 100 sets class member val to 100.
     */ 
+    /*
     Susp<int> sum([x,y]() { return x + y; });
 
     printf("Calling sum.lambda...\n");
     int z = sum.get();
     printf("z: %d.\n", z);
+    */
 }
 

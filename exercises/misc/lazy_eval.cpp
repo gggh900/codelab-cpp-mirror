@@ -15,19 +15,37 @@ class Susp0 {
         std::function<T()> _f;
 };
 
-
+#define DEBUG 1
 template <class T>
 class Susp {
 
     // thunk
 
-    static T const & thunkForce(Susp * susp) { return susp->setMemo(); }
-    static T const & thunkGet(Susp * susp) { return susp->getMem(); }
+    static T const & thunkForce(Susp * susp) { 
+        #if DEBUG == 1
+        printf("Susp.thunkForce entered...\n");
+        #endif
+        return susp->setMemo(); 
+    }
+    static T const & thunkGet(Susp * susp) { 
+        #if DEBUG == 1
+        printf("Susp.thunkGet entered...\n");
+        #endif
+        return susp->getMem(); 
+    }
 
     //
 
-    T const & getMemo() { return _memo; }
+    T const & getMemo() { 
+        #if DEBUG == 1
+        printf("Susp.getMemo entered...\n");
+        #endif
+        return _memo; 
+    }
     T const & setMemo() { 
+        #if DEBUG == 1
+        printf("Susp.setMemo entered...\n");
+        #endif
         _memo = _f();
         _thunk = &thunkGet;
         return getMemo();
@@ -37,7 +55,12 @@ public:
     : _f(f), _thunk(&thunkForce), _memo(T())
     {}
     
-    T const & get () { return _thunk(this) ; }
+    T const & get () { 
+        #if DEBUG == 1
+        printf("Susp.get() entered...\n");
+        #endif
+        return _thunk(this) ; 
+    }
     
 private:
     T const & (* _thunk)(Susp *);
@@ -75,5 +98,6 @@ int main() {
         return x + y; 
     };*/
     int z = sum.get();
+    printf("z: %d.\n", z);
 }
 

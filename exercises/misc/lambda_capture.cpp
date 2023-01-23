@@ -5,11 +5,21 @@ using namespace std;
 
 int main(int argc,char **argv)   {
     auto i=5;
-    auto m=1000;
 
-    auto f = [i,m](int m) {cout<<"capture i="<<i<<", passing i as m="<<m<< endl; };
-    while (i<4003) {
-        i += m;
-        f(m);
+    // at this point, when lambda declared [i] appears to capture value of i=5.
+    // this value was maintained throughout the loop below, even though i itself 
+    // was changed during loop. j will pass the actual value of updated of i value.
+
+    auto f = [i](int j) {
+        cout<<"capture i="<<i<<", passing i as j="<<j<< endl; 
+        cout << "inside lambda:" << endl;
+        cout << "i: " << i << endl;
+        cout << "j: " << j << endl;
+    };
+    while (i<30) {
+        cout << "======" << endl;
+        i += 10;
+        cout << "i outside lambda: " << i << endl;
+        f(i);
     }
 }

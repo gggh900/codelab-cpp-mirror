@@ -11,13 +11,13 @@ class Susp0 {
         : _f(f)
     {
         #if DEBUG  == 1 
-        printf("Susp0.constructor entered\n");
+        printf("- Susp0.constructor entered\n");
         #endif
     }
     T get() {
         #if DEBUG  == 1 
-        printf("Susp0.get1 entered\n");
-        printf("Returning _f(): size of _f(): %x.\n",sizeof(_f()));
+        printf("- Susp0.get1 entered\n");
+        printf("- Returning _f(): size of _f(): %x.\n",sizeof(_f()));
         #endif
         return _f(); 
     }
@@ -32,13 +32,13 @@ class Susp {
 
     static T const & thunkForce(Susp * susp) { 
         #if DEBUG == 1
-        printf("Susp.thunkForce entered...\n");
+        printf("- Susp.thunkForce entered...\n");
         #endif
         return susp->setMemo(); 
     }
     static T const & thunkGet(Susp * susp) { 
         #if DEBUG == 1
-        printf("Susp.thunkGet entered...\n");
+        printf("- Susp.thunkGet entered...\n");
         #endif
         return susp->getMemo(); 
     }
@@ -47,13 +47,13 @@ class Susp {
 
     T const & getMemo() { 
         #if DEBUG == 1
-        printf("Susp.getMemo entered...\n");
+        printf("- Susp.getMemo entered...\n");
         #endif
         return _memo; 
     }
     T const & setMemo() { 
         #if DEBUG == 1
-        printf("Susp.setMemo entered...\n");
+        printf("- Susp.setMemo entered...\n");
         #endif
         _memo = _f();
         _thunk = &thunkGet;
@@ -68,13 +68,13 @@ public:
     : _f(f), _thunk(&thunkForce), _memo(T())
     { 
         #if DEBUG == 1
-        printf("Susp.constructor entered...\n");
+        printf("- Susp.constructor entered...\n");
         #endif
     }
     
     T const & get () { 
         #if DEBUG == 1
-        printf("Susp.get() entered...\n");
+        printf("- Susp.get() entered...\n");
         #endif
         return _thunk(this) ; 
     }
@@ -101,7 +101,7 @@ void printNTriples(int n) {
     }
 }
 
-int sum2() {
+int sum_non_lambda() {
     int x = 100;
     int y = 200;
     return x * y * 100;
@@ -117,22 +117,16 @@ int main() {
     int z = 4;
  
        
-    printf("Using Susp0 with non-lambda regular function...\n");
+    printf("class Susp0 with non-lambda regular function...\n");
 
-/*lazy_eval.cpp:119:36: error: conversion from ‘int(int, int)’ to non-scalar type ‘std::function<int()>’ requested
-     std::function<int()> sum2std = sum2;
-    sum2: int(int,int)->std::function<int()>
-*/
-
-    std::function<int()> sum2std = sum2;
-    //printf("sum2std: %d.\n", sum2std(2, 10));
-    Susp0<int> sum2_instance(sum2std);
-    int z00 = sum2_instance.get();
-    printf("z00: %d.\n", z00);
+    std::function<int()> sum_non_lambda_stdfcn = sum_non_lambda;
+    Susp0<int> sum_non_lambda_instance(sum_non_lambda_stdfcn);
+    int sum_result_non_lambda = sum_non_lambda_instance.get();
+    printf("sum_result_non_lambda: %d.\n", sum_result_non_lambda);
         
     printf("---------------------\n");
     printf("Creating Susp0 lambda...\n");
-    Susp0<int> sum0_instance([x,y,z]() { return x + y * z; });
+    Susp0<int> sum_lambda_instance([x,y,z]() { return x + y * z; });
 
     /*
     auto add = [] (int a, int b) {
@@ -140,8 +134,8 @@ int main() {
     };*/
 
     printf("Calling sum.lambda...\n");
-    int z0 = sum0_instance.get();
-    printf("z0: %d.\n", z0);
+    int sum_result_lambda = sum_lambda_instance.get();
+    printf("sum_result_lambda: %d.\n", sum_result_lambda);
 
     printf("---------------------\n");
     printf("Creating Susp lambda...\n");
@@ -154,12 +148,11 @@ int main() {
     For same example but using simpler type see helper_class_instantiation.cpp where class constructor is called 
     the same fashion with initializing value: T1 val(100); where 100 sets class member val to 100.
     */ 
-    /*
-    Susp<int> sum([x,y]() { return x + y; });
 
-    printf("Calling sum.lambda...\n");
-    int z = sum.get();
-    printf("z: %d.\n", z);
-    */
+    Susp<int> sum_lambda_2([x,y]() { return x + y; });
+
+    printf("Calling sum_lambda_2...\n");
+    int sum_result_lambda_2 = sum_lambda_2.get();
+    printf("z: %d.\n", sum_result_lambda_2);
 }
 

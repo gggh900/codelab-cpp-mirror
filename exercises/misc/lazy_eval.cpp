@@ -127,6 +127,8 @@ int main() {
     std::function<int()> sum2std = sum2;
     //printf("sum2std: %d.\n", sum2std(2, 10));
     Susp0<int> sum2_instance(sum2std);
+    int z00 = sum2_instance.get();
+    printf("z00: %d.\n", z00);
         
     printf("---------------------\n");
     printf("Creating Susp0 lambda...\n");

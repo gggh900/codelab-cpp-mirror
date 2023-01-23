@@ -93,10 +93,13 @@ int main() {
     int x = 2;
     int y = 3;
 
+    printf("Creating Susp lambda...\n");
     Susp<int> sum([x,y]() { return x + y; });
     /*Susp0<int> sum = [x,y]() { 
         return x + y; 
     };*/
+
+    printf("Calling sum.lambda...\n");
     int z = sum.get();
     printf("z: %d.\n", z);
 }

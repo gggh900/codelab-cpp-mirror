@@ -31,7 +31,7 @@ class Susp {
         #if DEBUG == 1
         printf("Susp.thunkGet entered...\n");
         #endif
-        return susp->getMem(); 
+        return susp->getMemo(); 
     }
 
     //
@@ -93,7 +93,7 @@ int main() {
     int x = 2;
     int y = 3;
 
-    Susp0<int> sum([x,y]() { return x + y; });
+    Susp<int> sum([x,y]() { return x + y; });
     /*Susp0<int> sum = [x,y]() { 
         return x + y; 
     };*/

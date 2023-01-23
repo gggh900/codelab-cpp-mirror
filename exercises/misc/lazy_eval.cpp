@@ -101,6 +101,124 @@ void printNTriples(int n) {
     }
 }
 
+template<class T>
+class Stream
+{
+private:
+
+    // member: shared pointer, type: susp<Cell<T>>, name: _lazycell.
+
+    std::shared_ptr <Susp<Cell<T>>> _lazyCell;
+public:
+
+    // Constructor, default.
+
+    Stream() {}
+
+    // Constructor, accepting std::function<Cell<T>()> as input param, param name: f.
+    // assign to _lazycell
+
+    Stream(std::function<Cell<T>()> f)
+        : _lazyCell(std::make_shared<Susp<Cell<T>>>(f))
+    {}
+
+    // Copy constructor. Will assign _lazycell to current one.
+
+    Stream(Stream && stm)
+        : _lazyCell(std::move(stm._lazyCell))
+    {}
+
+    // Assignment operator overloaded. 
+    
+    Stream & operator=(Stream && stm)
+    {
+        _lazyCell = std::move(stm._lazyCell);
+        return *this;
+    }
+
+    // check if empty.
+
+    bool isEmpty() const
+    {
+        return !_lazyCell;
+    }
+
+    // return value.
+
+    T get() const
+    {
+        return _lazyCell->get().val();
+    }
+
+    // return tail.
+
+    Stream<T> pop_front() const
+    {
+        return _lazyCell->get().pop_front();
+    }
+};
+
+/*
+template<class T>
+class Stream
+{
+private:
+    std::shared_ptr <Susp<Cell<T>>> _lazyCell;
+};
+*/
+
+template<class T>
+class Cell
+{
+public:
+    Cell() {} // need default constructor for memoization
+    Cell(T v, Stream<T> const & tail)
+        : _v(v), _tail(tail)
+    {}
+    explicit Cell(T v) : _v(v) {}
+    T val() const {
+        return _v;
+    }
+    Stream<T> pop_front() const {
+        return _tail;
+    }
+private:
+    T _v;
+    Stream<T> _tail;
+};
+
+Stream<int> ints(int n, int m)
+{
+    if (n > m)
+        return Stream<int>();
+    return Stream<int>([n, m]()
+    {
+        return Cell<int>(n, ints(n + 1, m));
+    });
+}
+
+Stream take(int n) const {
+    if (n == 0 || isEmpty())
+        return Stream();
+    auto cell = _lazyCell;
+    return Stream([cell, n]()
+    {
+        auto v = cell->get().val();
+        auto t = cell->get().pop_front();
+        return Cell<T>(v, t.take(n - 1));
+    });
+}
+
+template<class T, class F>
+void forEach(Stream<T> strm, F f)
+{
+    while (!strm.isEmpty())
+    {
+        f(strm.get());
+        strm = strm.pop_front();
+    }
+}
+
 int sum_non_lambda() {
     int x = 100;
     int y = 200;
@@ -154,5 +272,6 @@ int main() {
     printf("Calling sum_lambda_2...\n");
     int sum_result_lambda_2 = sum_lambda_2.get();
     printf("z: %d.\n", sum_result_lambda_2);
+
 }
 

@@ -101,7 +101,9 @@ void printNTriples(int n) {
     }
 }
 
-int sum2(int x, int y) {
+int sum2() {
+    int x = 100;
+    int y = 200;
     return x * y * 100;
 }
 int main() {
@@ -122,7 +124,7 @@ int main() {
     sum2: int(int,int)->std::function<int()>
 */
 
-    std::function<int(int, int)> sum2std = sum2;
+    std::function<int()> sum2std = sum2;
     //printf("sum2std: %d.\n", sum2std(2, 10));
     Susp0<int> sum2_instance(sum2std);
         

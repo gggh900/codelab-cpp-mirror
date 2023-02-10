@@ -14,12 +14,21 @@ void f2(void) {
 }
 */
 void c1::c1_f1(void) {
-    auto f1_lambda = [this](void) {
+
+    //auto queue_lambda = [this]() {... };
+
+    auto f1_lambda = [this]() {
         std::cout << "f1_lambda" << std::endl;
         //c1 c1local;
         //return c1local;
     };
-    c1_q1[0].reset([f1_lambda, this] () {return f1_lambda(); } );
+    //c1_q1[0].reset([] () {return f1_lambda(); } ); // did not work.
+
+    // queues_[QueueBlitOnly].reset(queue_lambda); // ROCR example.
+
+    c1_q1[0].reset(f1_lambda);
+        }
+    );
 }
 
 int main() {

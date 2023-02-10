@@ -15,11 +15,13 @@ int main(int argc,char **argv)   {
         cout << "inside lambda:" << endl;
         cout << "i: " << i << endl;
         cout << "j: " << j << endl;
+        return 100;
     };
     while (i<30) {
         cout << "======" << endl;
         i += 10;
         cout << "i outside lambda: " << i << endl;
-        f(i);
+        int ret = f(i);
+        cout << "ret: " << ret << endl;
     }
 }

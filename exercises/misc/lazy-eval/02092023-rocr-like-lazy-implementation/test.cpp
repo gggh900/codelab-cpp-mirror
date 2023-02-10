@@ -14,19 +14,17 @@ void f2(void) {
 }
 */
 void c1::c1_f1(void) {
-    auto f1_lambda = [](void) {
+    auto f1_lambda = [this](void) {
         std::cout << "f1_lambda" << std::endl;
         //c1 c1local;
         //return c1local;
     };
-    c1_lazy[0].reset(f1_lambda);
+    c1_q1[0].reset([f1_lambda, this] () {return f1_lambda(); } );
 }
 
 int main() {
     
     // lazy pointer, pass c1 class, name c1_lazy with 3 array members. o
-
-    lazy_ptr<c1> c1_lazy[3];
 
     // create standard function based on f1 named f1_std.
     //std::function<void(void)> f1_std = f1;

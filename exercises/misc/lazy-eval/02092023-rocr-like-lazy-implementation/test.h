@@ -96,9 +96,15 @@ template <typename T> class lazy_ptr {
    */
 };
 
+class q1 {
+private:
+public:
+    int * q1a;
+};
+
 class c1 {
 private:
-    lazy_ptr<c1> c1_lazy[3];
+    lazy_ptr<q1> c1_q1[3];
 public:
     c1() {};
     void c1_f1(void);    

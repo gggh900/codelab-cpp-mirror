@@ -3,6 +3,11 @@
 #include <functional>
 #include <iostream>
 
+class c1 {
+public:
+    c1() {};
+};
+
 template <typename T> class lazy_ptr {
  public:
   lazy_ptr() {}
@@ -72,6 +77,9 @@ template <typename T> class lazy_ptr {
   mutable std::unique_ptr<T> obj;
   mutable std::function<T*(void)> func;
 
+  auto f1_lambda = [this](void) {
+    std::cout << "f1_lambda" << std::endl;
+  };
   // Separated from make to improve inlining.
   /*
   void make_body(bool block) const {
@@ -96,5 +104,17 @@ template <typename T> class lazy_ptr {
    */
 };
 
+void f1(void) {
+    std::cout << "f1..." << std::endl;
+    return;
+}
+void f2(void) {
+    std::cout << "f2..." << std::endl;
+    return;
+}
 int main() {
+    lazy_ptr<c1> f1_lazy[3];
+    std::function<void(void)> f1_std = f1;
+    c1 c1i;
+    f1_lazy[0].reset(&c1i);
 }

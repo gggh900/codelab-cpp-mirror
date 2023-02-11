@@ -18,17 +18,18 @@ void c1::c1_f1(void) {
     //auto queue_lambda = [this]() {... };
 
     auto f1_lambda = [this]() {
-        std::cout << "f1_lambda" << std::endl;
+        std::cout << "f1_lambda entered." << std::endl;
         //c1 c1local;
         //return c1local;
         q1 * q1_ptr;
+        q1_ptr = new q1();
         return q1_ptr;
     };
-    //c1_q1[0].reset([] () {return f1_lambda(); } ); // did not work.
-
-    // queues_[QueueBlitOnly].reset(queue_lambda); // ROCR example.
 
     c1_q1[0].reset(f1_lambda);
+    std::cout << "&c1_q1[0]: " << &c1_q1[0] << std::endl;
+    //c1_q1[0]->print_q1();
+    c1_q1[0];
 }
 
 int main() {
@@ -41,11 +42,5 @@ int main() {
     // instantiate c1.
 
     c1 c1i;
-
-    // create f1_lambda function.
-
-    //std::function<c1(void)> f1_lambda_std = f1_lambda;
-
-    // pass f1_lambda function to c1_lazy.
-
+    c1i.c1_f1();
 }

@@ -21,14 +21,14 @@ void c1::c1_f1(void) {
         std::cout << "f1_lambda" << std::endl;
         //c1 c1local;
         //return c1local;
+        q1 * q1_ptr;
+        return q1_ptr;
     };
     //c1_q1[0].reset([] () {return f1_lambda(); } ); // did not work.
 
     // queues_[QueueBlitOnly].reset(queue_lambda); // ROCR example.
 
     c1_q1[0].reset(f1_lambda);
-        }
-    );
 }
 
 int main() {

@@ -77,6 +77,8 @@ int main() {
   std::cout << up << ": " << *up << '\n';
 
   up.reset();               // deletes managed object
+
+  smart_pointer<int> up2=up;  // empty
     
   return 0;
 }

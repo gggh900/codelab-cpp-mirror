@@ -19,7 +19,7 @@ int main () {
 
   up.reset();               // deletes managed object
   
-  //std::unique_ptr<int> up2 = up;
+  std::unique_ptr<int> up2 = up;
 
   return 0;
 }

@@ -29,7 +29,6 @@ int main()
     std::function<void()> f_display_42 = []() { print_num(42); };
     f_display_42();
 
-    /* 
     // store the result of a call to std::bind
     std::function<void()> f_display_31337 = std::bind(print_num, 31337);
     f_display_31337();
@@ -64,5 +63,5 @@ int main()
         return fac(n);
     };
     for (int i{5}; i != 8; ++i) { std::cout << i << "! = " << factorial(i) << ";  "; }
-    */
+
 }

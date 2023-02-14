@@ -2,6 +2,7 @@
 Original code...
 https://cplusplus.com/reference/memory/unique_ptr/reset/
 */
+
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -17,37 +18,55 @@ private:
 public:
     T * rawPtr;
     string string_output;
-    smart_pointer () { 
-    }
+    //smart_pointer () { 
+    //}
 
     T * get() {
+        std::cout << "  smart_pointer::get() entered..." << std::endl;
         return rawPtr;
     }
     void reset(T* pData) {
+        std::cout << "  smart_pointer::reset(T* pData) entered..." << std::endl;
         // I am not sure if this is right. Do we delete old rawPtr
 
         // caused runtime error.
         //rawPtr = pData;
-        //delete rawPtr;
+        if (rawPtr) {
+            std::cout << "  smart_pointer::reset(..): Deleting rawPtr..." << std::endl;
+            delete rawPtr;
+        } else {
+            std::cout << "  smart_pointer::reset(..): Bypassing deleting rawPtr as it is set to null." << std::endl;
+        }
         rawPtr = pData;
     }
 
     void reset() {
+        std::cout << "  smart_pointer::reset() entered..." << std::endl;
         // caused runtime error.
         delete rawPtr;
+        rawPtr = nullptr;
+    }
+
+    smart_pointer() { 
+        std::cout << "  smart_pointer::smart_pointer() constructor entered..." << std::endl;
+        rawPtr = 0;
     }
     smart_pointer (T* pData) { 
+        std::cout << "  smart_pointer::smart_pointer(T*pData) constructor entered..." << std::endl;
         rawPtr = pData; 
     }   
     
     ~smart_pointer () {
+       std::cout << "  smart_pointer::~smart_pointer() desctructor entered..." << std::endl;
        delete rawPtr;
     }
 
     T& operator * () const { 
+        //std::cout << "  smart_pointer::operator*() entered..." << std::endl;
         return *(rawPtr);
     }
     T* operator->() const { 
+        //std::cout << "  smart_pointer::operator->() entered..." << std::endl;
         return rawPtr;
     }
 
@@ -60,8 +79,12 @@ public:
 
 };
 
-int main() {
+#define PRINT_SMART_PTR up.rawPtr == nullptr ? \
+    std::cout << "up.rawPtr: " << up.rawPtr << std::endl :\
+    std::cout << "up.rawPtr: " << up.rawPtr << ", *up: " << *up << ", *a: " << a << ", a: " << a << std::endl;
+    //std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
 
+int main() {
   /*
     smart_pointer <int> smartint (new int);
     std::cout << smartint << std::endl;
@@ -71,26 +94,36 @@ int main() {
 
   std::cout << "Creating smart_pointer..." << std::endl;
   smart_pointer<int> up;  // empty
+  int * a =  new int (10);
+
   try {
-    std::cout << "up: " << *up << "up.rawPtr: " << up.rawPtr << std::endl;
+    PRINT_SMART_PTR
   } catch (int e) {
     std::cout << "std::cout of up and up.rawPtr caused exception..." << e << std::endl;
   }
 
   std::cout << "up.reset() with a which is initialized with 10..." << std::endl;
-  int * a =  new int (10);
-  std::cout << "*a/a: " << *a << ", " << a << std::endl;
-  up.reset (a);       // takes ownership of pointer
-  std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
+
+  try {
+    up.reset (a);       // takes ownership of pointer
+  } catch (int e) {
+    std::cout << "std::cout of up and up.rawPtr caused an exception..." << e << std::endl;
+  }
+
+  try {
+    PRINT_SMART_PTR
+  } catch (int e) {
+    std::cout << "std::cout of up and up.rawPtr caused an exception..." << e << std::endl;
+  }
 
   std::cout << "update *a to  25..." << std::endl;
   *a=25;
-  std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
+  PRINT_SMART_PTR
    
 
   std::cout << "up.reset()..." << std::endl;
   up.reset();
-  std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
+  PRINT_SMART_PTR
 
   return 0;
 }

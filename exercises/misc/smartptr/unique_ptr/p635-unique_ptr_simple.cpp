@@ -34,7 +34,7 @@ public:
 
     void reset() {
         // caused runtime error.
-        //delete rawPtr;
+        delete rawPtr;
     }
     smart_pointer (T* pData) { 
         rawPtr = pData; 

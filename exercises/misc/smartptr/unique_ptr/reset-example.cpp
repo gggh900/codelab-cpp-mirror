@@ -7,7 +7,6 @@
 
 int main () {
   std::unique_ptr<int> up;  // empty
-
   
   up.reset (new int);       // takes ownership of pointer
   *up=5;
@@ -18,8 +17,9 @@ int main () {
   std::cout << up.get() << ": " << *up << '\n';
 
   up.reset();               // deletes managed object
+  std::cout << up.get() << ": " << *up << '\n';
   
-  std::unique_ptr<int> up2 = up;
+  //std::unique_ptr<int> up2 = up;
 
   return 0;
 }

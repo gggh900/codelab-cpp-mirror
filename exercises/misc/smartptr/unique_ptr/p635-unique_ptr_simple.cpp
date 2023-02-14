@@ -6,9 +6,13 @@ https://cplusplus.com/reference/memory/unique_ptr/reset/
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <memory>
 
+#define CONGIG_USE_STDLIB 0
+#define DEBUG_L2 0
 using namespace std;
 
+#if CONGIG_USE_STDLIB == 0
 template <typename T>
 class smart_pointer {
 private:
@@ -22,7 +26,9 @@ public:
     //}
 
     T * get() {
+        #if DEBUG_L2 == 1
         std::cout << "  smart_pointer::get() entered..." << std::endl;
+        #endif
         return rawPtr;
     }
     void reset(T* pData) {
@@ -62,11 +68,15 @@ public:
     }
 
     T& operator * () const { 
-        //std::cout << "  smart_pointer::operator*() entered..." << std::endl;
+        #if DEBUG_L2 == 1
+        std::cout << "  smart_pointer::operator*() entered..." << std::endl;
+        #endif
         return *(rawPtr);
     }
     T* operator->() const { 
-        //std::cout << "  smart_pointer::operator->() entered..." << std::endl;
+        #if DEBUG_L2 == 1
+        std::cout << "  smart_pointer::operator->() entered..." << std::endl;
+        #endif
         return rawPtr;
     }
 
@@ -79,21 +89,30 @@ public:
 
 };
 
-#define PRINT_SMART_PTR up.rawPtr == nullptr ? \
+#endif // CONGIG_USE_STDLIB
+
+#define PRINT_SMART_PTR up.get() == nullptr ? \
+    std::cout << "up.get(): " << up.get() << std::endl :\
+    std::cout << "up.get(): " << up.get() << ", *up: " << *up << ", *a: " << a << ", a: " << a << std::endl;
+
+/*
+#else
+    #define PRINT_SMART_PTR up.rawPtr == nullptr ? \
     std::cout << "up.rawPtr: " << up.rawPtr << std::endl :\
     std::cout << "up.rawPtr: " << up.rawPtr << ", *up: " << *up << ", *a: " << a << ", a: " << a << std::endl;
-    //std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
+#endif
+*/
 
 int main() {
-  /*
-    smart_pointer <int> smartint (new int);
-    std::cout << smartint << std::endl;
-    //smart_pointer <int> smartint2=smartint;
 
-  */
-
+  #if CONGIG_USE_STDLIB == 1
+  std::cout << "Using stdlib for unique_ptr..." << std::endl;
+  std::unique_ptr<int> up; 
+  #else
+  std::cout << "Using implemented class for unique_ptr..." << std::endl;
   std::cout << "Creating smart_pointer..." << std::endl;
   smart_pointer<int> up;  // empty
+  #endif
   int * a =  new int (10);
 
   try {
@@ -120,7 +139,6 @@ int main() {
   *a=25;
   PRINT_SMART_PTR
    
-
   std::cout << "up.reset()..." << std::endl;
   up.reset();
   PRINT_SMART_PTR

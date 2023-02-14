@@ -1,4 +1,7 @@
-// problem with conventional raw pointers too hard to track deallocation.
+/*
+Original code...
+https://cplusplus.com/reference/memory/unique_ptr/reset/
+*/
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -8,12 +11,12 @@ using namespace std;
 template <typename T>
 class smart_pointer {
 private:
-    T * rawPtr;
-    string string_output;
     smart_pointer (const smart_pointer & anotherSP);
     smart_pointer & operator = (const smart_pointer  & anotherSP);
 
 public:
+    T * rawPtr;
+    string string_output;
     smart_pointer () { 
     }
 
@@ -65,20 +68,29 @@ int main() {
     //smart_pointer <int> smartint2=smartint;
 
   */
+
+  std::cout << "Creating smart_pointer..." << std::endl;
   smart_pointer<int> up;  // empty
-  
-  up.reset (new int);       // takes ownership of pointer
-  *up=5;
-  std::cout << up << ": " << *up << '\n';
+  try {
+    std::cout << "up: " << *up << "up.rawPtr: " << up.rawPtr << std::endl;
+  } catch (int e) {
+    std::cout << "std::cout of up and up.rawPtr caused exception..." << e << std::endl;
+  }
 
-  up.reset (new int);       // deletes managed object, acquires new pointer
-  *up=10;
-  //std::cout << up.get() << ": " << *up << '\n';
-  std::cout << up << ": " << *up << '\n';
+  std::cout << "up.reset() with a which is initialized with 10..." << std::endl;
+  int * a =  new int (10);
+  std::cout << "*a/a: " << *a << ", " << a << std::endl;
+  up.reset (a);       // takes ownership of pointer
+  std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
 
-  up.reset();               // deletes managed object
+  std::cout << "update *a to  25..." << std::endl;
+  *a=25;
+  std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
+   
 
-  smart_pointer<int> up2=up;  // empty
-    
+  std::cout << "up.reset()..." << std::endl;
+  up.reset();
+  std::cout << "*up: " << *up << ", up.rawPtr: " << up.rawPtr << ", *a: " << *a << ", a: " << a << std::endl;
+
   return 0;
 }

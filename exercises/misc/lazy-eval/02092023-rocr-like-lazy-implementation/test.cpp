@@ -3,6 +3,7 @@
 #include <functional>
 #include <iostream>
 #include "test.h"
+#include <typeinfo>
 
 /*void f1(void) {
     std::cout << "f1..." << std::endl;
@@ -13,6 +14,7 @@ void f2(void) {
     return;
 }
 */
+
 void c1::c1_f1(void) {
 
     //auto queue_lambda = [this]() {... };
@@ -26,10 +28,18 @@ void c1::c1_f1(void) {
         return q1_ptr;
     };
 
-    c1_q1[0].reset(f1_lambda);
-    std::cout << "&c1_q1[0]: " << &c1_q1[0] << std::endl;
+    //c1_q1[0].reset(f1_lambda);
+    c1_q1[0].reset([f1_lambda, this]() { return f1_lambda(); });
+    //std::cout << "&c1_q1[0]: " << &c1_q1[0] << std::endl;
+
+    c1_q1[0]->print_q1();
+    /*
+    std::cout << "DBG: f1_lambda: " << typeid(f1_lambda).name() << std::endl;
+    std::cout << "DBG: type c1_q1: " << typeid(c1_q1).name() << std::endl;
+    std::cout << "DBG: type c1_q1[0]: " << typeid(c1_q1[0]).name() << std::endl;
+    */
+    //std::cout << " &c1_q1[0]: " << &c1_q1[0] << std::endl;
     //c1_q1[0]->print_q1();
-    c1_q1[0];
 }
 
 int main() {
@@ -42,5 +52,7 @@ int main() {
     // instantiate c1.
 
     c1 c1i;
+    //std::cout << "DBG/ADDR: type c1 c1i: " << typeid(c1i).name() << &c1i << std::endl;
     c1i.c1_f1();
+    //std::cout << "DBG/ADDR: type c1i.c1_f1(): " << typeid(c1i.c1_f1()).name() << "??" << std::endl;
 }

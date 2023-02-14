@@ -36,7 +36,7 @@ template <typename T> class lazy_ptr {
     obj.reset();
     func = Constructor;
 
-    obj==nullptr ? std::cout << "obj is null" << std::endl : std::cout << "obj is not null, ok" << std::endl;
+    obj==nullptr ? std::cout << "  obj is null" << std::endl : std::cout << "obj is not null, ok" << std::endl;
   }
 
   void reset(T* ptr) {
@@ -124,6 +124,7 @@ class q1 {
 private:
 public:
     void print_q1() { std::cout << "print_q1() entered..." << std::endl; }
+    int operator() (void) { return 101; } 
     int * q1a;
 };
 

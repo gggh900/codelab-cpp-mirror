@@ -3,23 +3,23 @@
 #include <functional>
 #include <iostream>
 #include <cassert>
-
+#define DEBUG_L2 0
 template <typename T> class lazy_ptr {
  private:
+ public:
   mutable std::unique_ptr<T> obj;
   mutable std::function<T*(void)> func;
- public:
   lazy_ptr() {}
 
   explicit lazy_ptr(std::function<T*()> Constructor) { Init(Constructor); }
   lazy_ptr(lazy_ptr&& rhs) {
-    std::cout << "lazy_ptr: explicit constructor entered." << std::endl;
+    std::cout << " L1: lazy_ptr: explicit constructor entered." << std::endl;
     obj = std::move(rhs.obj);
     func = std::move(rhs.func);
   }
 
   lazy_ptr& operator=(lazy_ptr&& rhs) {
-    std::cout << "lazy_ptr: operator=() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: operator=() entered..." << std::endl;
     obj = std::move(rhs.obj);
     func = std::move(rhs.func);
   }
@@ -28,46 +28,47 @@ template <typename T> class lazy_ptr {
   lazy_ptr& operator=(lazy_ptr&) = delete;
 
   void reset(std::function<T*()> Constructor = nullptr) {
-    std::cout << "lazy_ptr reset(std::function<T*()> Constructor = nullptr) (replacing function with new func) " << &Constructor << std::endl;
-    Constructor==nullptr ? std::cout << "lazy_ptr reset(): constructor is NULL" << std::endl : 
-                          std::cout << "lazy_ptr reset(): constructor: " << &Constructor << std::endl;
+    std::cout << " L1: lazy_ptr reset(std::function<T*()> Constructor = nullptr) (replacing function with new func) " << &Constructor << std::endl;
 
     //std::cout << "obj: " << obj << ", func: " << func << std::endl;
+    //obj.reset(&Constructor);
     obj.reset();
     func = Constructor;
-
-    obj==nullptr ? std::cout << "  obj is null" << std::endl : std::cout << "obj is not null, ok" << std::endl;
   }
 
   void reset(T* ptr) {
-    std::cout << "GG:lazy_ptr reset(T* ptr) (resetting func to null)" << std::endl;
+    std::cout << " L1: lazy_ptr reset(T* ptr) (resetting func to null)" << std::endl;
     obj.reset(ptr);
     func = nullptr;
   }
   bool operator==(T* rhs) const { 
-    std::cout << "lazy_ptr: operator==() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: operator==() entered..." << std::endl;
     return obj.get() == rhs; 
   }
   bool operator!=(T* rhs) const { 
     return obj.get() != rhs; 
-    std::cout << "lazy_ptr: operator!=() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: operator!=() entered..." << std::endl;
   }
 
   const std::unique_ptr<T>& operator->() const {
     //make(true);
-    std::cout << "lazy_ptr: operator->() entered..." << std::endl;
+    #if DEBUG_L2 == 1
+    std::cout << std::endl << "  L2: lazy_ptr: operator->() entered..." << std::endl;
+    #endif
     assert(obj != nullptr && "Null dereference through lazy_ptr.");
     return obj;
   }
 
   std::unique_ptr<T>& operator*() {
-    std::cout << "lazy_ptr: operator* entered..." << std::endl;
+    #if DEBUG_L2 == 1
+    std::cout << std::endl << "  L2: lazy_ptr: operator* entered..." << std::endl;
+    #endif
     //make(true);
     return obj;
   }
 
   const std::unique_ptr<T>& operator*() const {
-    std::cout << "lazy_ptr: const...operator*() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: const...operator*() entered..." << std::endl;
     //make(true);
     return obj;
   }
@@ -77,7 +78,7 @@ template <typename T> class lazy_ptr {
    * This is useful when early construction of the object is required.
    */
   void touch() const { 
-    std::cout << "lazy_ptr: touch() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: touch() entered..." << std::endl;
      //make(false); 
   }
 
@@ -88,11 +89,11 @@ template <typename T> class lazy_ptr {
     return obj == nullptr;
   }*/
   std::unique_ptr<T> getObj() { 
-    std::cout << "lazy_ptr: getObj() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: getObj() entered..." << std::endl;
     return obj; 
   }
   std::function<T*(void)> getFunc() { 
-    std::cout << "lazy_ptr: getFunc() entered..." << std::endl;
+    std::cout << " L1: lazy_ptr: getFunc() entered..." << std::endl;
     return func; 
   }
 

@@ -24,6 +24,8 @@ int main()
     // store a free function
     std::function<void(int)> f_display = print_num;
     f_display(-9);
+    std::cout << f_display.target_type().name() << std::endl;
+    return 0;
  
     // store a lambda
     std::function<void()> f_display_42 = []() { print_num(42); };

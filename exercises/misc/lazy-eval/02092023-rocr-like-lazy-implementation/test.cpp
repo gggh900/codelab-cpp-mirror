@@ -19,8 +19,8 @@ class lazy_ptr {
 
 */
 
-#define PRINT_LAZYPTR_STATE  \
-    std::cout << "c1_q1[0].obj.get(): "  << c1_q1[0].obj.get() << ", c1_q1[0].func: " << c1_q1[0].func << std::endl;
+//#define PRINT_LAZYPTR_STATE  \
+//    std::cout << "c1_q1[0].obj.get(): "  << c1_q1[0].obj.get() << ", c1_q1[0].func: " << c1_q1[0].func << std::endl;
 
 void c1::c1_f1(void) {
 
@@ -38,7 +38,9 @@ void c1::c1_f1(void) {
     //c1_q1[0].reset(f1_lambda);
     c1_q1[0].reset([f1_lambda, this]() { return f1_lambda(); });
     c1_q1[0].touch();
-    PRINT_LAZYPTR_STATE
+//    PRINT_LAZYPTR_STATE
+    std::cout << "c1_q1[0].obj.get(): "  << c1_q1[0].obj.get() << ", c1_q1[0].func.target_type().name(): " << c1_q1[0].func.target_type().name() << std::endl;
+
     //std::cout << "c1_q1[0].obj.get(): "  << c1_q1[0].obj.get();
     //std::cout << "&c1_q1[0]: " << &c1_q1[0] << std::endl;
     //PRINT_SMART_PTR

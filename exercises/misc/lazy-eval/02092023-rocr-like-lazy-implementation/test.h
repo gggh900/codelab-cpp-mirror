@@ -36,6 +36,9 @@ template <typename T> class lazy_ptr {
     func = Constructor;
   }
 
+  void print_state() {
+    std::cout << "obj.get():  "  << obj.get() << ", func: " << func.target_type().name() << std::endl;
+  }
   void reset(T* ptr) {
     std::cout << " L1: lazy_ptr reset(T* ptr) (resetting func to null)" << std::endl;
     obj.reset(ptr);

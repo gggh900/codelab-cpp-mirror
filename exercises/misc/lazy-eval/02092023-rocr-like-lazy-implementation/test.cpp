@@ -20,7 +20,7 @@ class lazy_ptr {
 */
 
 #define PRINT_LAZYPTR_STATE  \
-    std::cout << "c1_q1[0].obj.get(): "  << c1_q1[0].obj.get() << std::endl;
+    std::cout << "c1_q1[0].obj.get(): "  << c1_q1[0].obj.get() << ", c1_q1[0].func: " << c1_q1[0].func << std::endl;
 
 void c1::c1_f1(void) {
 

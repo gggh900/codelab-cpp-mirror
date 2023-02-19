@@ -44,6 +44,11 @@ template <typename T> class lazy_ptr {
     obj.reset(ptr);
     func = nullptr;
   }
+
+  void operator() () const {
+    std::cout << " L1: lazy_ptr: operator() function override entered..." << std::endl;
+  }
+
   bool operator==(T* rhs) const { 
     std::cout << " L1: lazy_ptr: operator==() entered..." << std::endl;
     return obj.get() == rhs; 
@@ -127,8 +132,13 @@ template <typename T> class lazy_ptr {
 class q1 {
 private:
 public:
-    void print_q1() { std::cout << "print_q1() entered..." << std::endl; }
-    int operator() (void) { return 101; } 
+    void operator() () const {
+        std::cout << "  q1: operator() function override entered..." << std::endl;
+    }
+
+    void print_q1() { 
+        std::cout << "  q1: print_q1() entered..." << std::endl; 
+    }
     int * q1a;
 };
 

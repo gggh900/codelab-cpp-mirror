@@ -44,9 +44,21 @@ void c1::c1_f1(void) {
 
     q1 * q1_ptr_2;
     q1_ptr_2 = new q1();
+
+    // it is unclear commenting line c1_q1[0].reset(q1_ptr_2); causes  c1_q1[0]->print_q1(); to fail as it seems 
+    // opposite should be the case (since reset(T* ptr resets func).
+    
     c1_q1[0].reset(q1_ptr_2);
     c1_q1[0].print_state();
     c1_q1[0]->print_q1();
+    c1_q1[0];
+
+    /*
+    if (c1_q1[0] == c1_q1[1]) {
+        std::cout << "c1_q1[0] and [1] are equal" << std::endl;
+    } else {
+        std::cout << "c1_q1[0] and [1] are NOT equal" << std::endl;
+    }*/
 }
 
 int main() {

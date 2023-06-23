@@ -4,6 +4,9 @@ https://en.cppreference.com/w/cpp/language/template_specialization
 */
 #define SPECIALIZA_FLOAT 0
 
+// Setting this to 0 will break the code!!!
+#define SPECIALIZA_VOID 1
+
 #include <type_traits>
 #include <iostream>
 
@@ -19,6 +22,7 @@ struct is_void {
     }
 };
 
+#if SPECIALIZA_VOID == 1
 template<>           // explicit specialization for T = void
 struct is_void<void> {
     int value;
@@ -27,7 +31,7 @@ struct is_void<void> {
         value = 100; 
     }
 };
- 
+#endif
 
 
 #if SPECIALIZA_FLOAT == 1

@@ -3,5 +3,5 @@ for i in *.cpp ; do
     if [[ $i == "lib.cpp" ]] ; then 
         continue
     fi
-    g++ -I. lib.cpp $i -o $i.out
+    g++ -I.. ../lib.cpp $i -o $i.out
 done

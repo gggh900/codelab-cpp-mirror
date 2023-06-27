@@ -18,6 +18,8 @@ inline std::ostream& hex_dump(std::ostream& o, std::string const& v) {
 
 int main() {
     std::stringstream ss;
-    msgpack::pack(ss, "compact");
+    std::vector<int> v { 1, 5, 8, 2, 6 };
+    msgpack::pack(ss, v);
     hex_dump(std::cout, ss.str()) << std::endl;
+
 }

@@ -4,4 +4,5 @@ for i in *.cpp ; do
         continue
     fi
     g++ -I.. ../lib.cpp $i -o $i.out
+    g++ -g -I.. ../lib.cpp $i -o $i.dbg.out
 done

@@ -1,3 +1,9 @@
+
+#include <iostream>
+#include <sstream>
+#include <lib.h>
+#include <msgpack.hpp>
+
 struct json_like_visitor : msgpack::null_visitor {
     json_like_visitor(std::string& s):m_s(s) {}
 
@@ -83,4 +89,5 @@ int main()
     bool ret = msgpack::parse(str.data(), str.size(), off, v);
     assert(ret);
     assert("{\"key\":[42,null,true]}" == json_like);
+    std::cout << "json: " << json_like << std::endl;
 }

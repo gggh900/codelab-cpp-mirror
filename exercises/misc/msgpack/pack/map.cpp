@@ -7,6 +7,7 @@
 
 int main() {
     std::stringstream ss;
-    msgpack::pack(ss, "compact");
+    std::map<std::string, int> v { { "ABC", 5 }, { "DEFG", 2 } };
+    msgpack::pack(ss, v);
     hex_dump(std::cout, ss.str()) << std::endl;
 }

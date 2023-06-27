@@ -4,7 +4,7 @@
 #include <msgpack.hpp>
 
 // hex_dump is not a part of msgpack-c. 
-inline std::ostream& hex_dump(std::ostream& o, std::string const& v) {
+std::ostream& hex_dump(std::ostream& o, std::string const& v) {
     std::ios::fmtflags f(o.flags());
     o << std::hex;
     for (auto c : v) {

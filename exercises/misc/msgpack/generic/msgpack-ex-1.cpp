@@ -5,7 +5,7 @@
 
 int main()
 {
-    msgpack::type::tuple<int, bool, std::string> src(1, true, "example");
+    msgpack::type::tuple<float, int, bool, std::string> src(5.12, 25, true, "example");
 
     // serialize the object into the buffer.
     // any classes that implements write(const char*,size_t) can be a buffer.
@@ -27,14 +27,18 @@ int main()
     // msgpack::object supports ostream.
     std::cout << deserialized << std::endl;
 
+    for (int i = 0; i < deserialized.via.array.size; i ++ ) {
+        std::cout << *(deserialized.via.array.ptr+i) << std::endl;
+    }
+
     // convert msgpack::object instance into the original type.
     // if the type is mismatched, it throws msgpack::type_error exception.
-    msgpack::type::tuple<int, bool, std::string> dst;
+    msgpack::type::tuple<float, int, bool, std::string> dst;
     deserialized.convert(dst);
 
     // or create the new instance
-    msgpack::type::tuple<int, bool, std::string> dst2 =
-        deserialized.as<msgpack::type::tuple<int, bool, std::string> >();
+    msgpack::type::tuple<float, int, bool, std::string> dst2 =
+        deserialized.as<msgpack::type::tuple<float, int, bool, std::string> >();
 
     return 0;
 }

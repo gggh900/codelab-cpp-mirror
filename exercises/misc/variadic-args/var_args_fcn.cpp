@@ -1,5 +1,8 @@
 #include <cstdarg>
 #include <iostream>
+
+#define simple_printf_macro(...) simple_printf(__VA_ARGS__)
+    
  
 void simple_printf(const char* fmt...) // C-style "const char* fmt, ..." is also valid
 {
@@ -33,4 +36,5 @@ void simple_printf(const char* fmt...) // C-style "const char* fmt, ..." is also
 int main()
 {
     simple_printf("dcff", 3, 'a', 1.999, 42.5); 
+    simple_printf_macro("dcff", 3, 'a', 1.999, 42.5); 
 }

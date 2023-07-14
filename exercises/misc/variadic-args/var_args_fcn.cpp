@@ -1,31 +1,44 @@
 #include <cstdarg>
 #include <iostream>
+#include <string> 
 
 #define simple_printf_macro(...) simple_printf(__VA_ARGS__)
-    
+#define DEBUG 1
  
 void simple_printf(const char* fmt...) // C-style "const char* fmt, ..." is also valid
 {
     va_list args;
     va_start(args, fmt);
- 
+     
     while (*fmt != '\0')
     {
         if (*fmt == 'd')
         {
+            #if DEBUG == 1
+            std::cout << "\n----\nd:" ;
+            #endif
             int i = va_arg(args, int);
             std::cout << i << '\n';
         }
         else if (*fmt == 'c')
         {
+            #if DEBUG == 1
+            std::cout << "\n----\nc:" ;
+            #endif
             // note automatic conversion to integral type
             int c = va_arg(args, int);
             std::cout << static_cast<char>(c) << '\n';
         }
         else if (*fmt == 'f')
         {
+            #if DEBUG == 1
+            std::cout << "\n----\nf:" ;
+            #endif
             double d = va_arg(args, double);
             std::cout << d << '\n';
+        }
+        else {
+            std::cout << "??" << std::endl;
         }
         ++fmt;
     }
@@ -35,6 +48,11 @@ void simple_printf(const char* fmt...) // C-style "const char* fmt, ..." is also
  
 int main()
 {
-    simple_printf("dcff", 3, 'a', 1.999, 42.5); 
-    simple_printf_macro("dcff", 3, 'a', 1.999, 42.5); 
+    /*
+    std::string s1 = "dcaa";
+    simple_printf(s1.c_str(), "dcff", 3, 'a', 1.999, 42.5); 
+    simple_printf_macro(s1.c_str(), "dcff", 3, 'a', 1.999, 42.5); 
+    */
+    simple_printf("dcff", 3, 'a', 1.999, 42.5, "abc"); 
+    simple_printf_macro("dcff", 3, 'a', 1.999, 42.5, "abc"); 
 }

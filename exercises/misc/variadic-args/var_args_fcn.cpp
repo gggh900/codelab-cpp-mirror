@@ -9,6 +9,7 @@ template <typename A=std::string, typename B=std::string, typename C=std::string
 void simple_printf2(const A& s1 = "" , const B & s2 = "", const C & s3 = "") {
     std::cout << s1 << " " << s2 << " " << s3 << std::endl;
 } 
+
 void simple_printf(const char* fmt...) // C-style "const char* fmt, ..." is also valid
 {
     va_list args;
@@ -60,6 +61,7 @@ int main()
     simple_printf_macro("dcff", 3, 'a', 1.999, 42.5, "abc"); 
     */
     simple_printf2<std::string>("aaa", "bbb", "ccc");
-    simple_printf2<std::string, std::string, int>("aaa", "bbb", 1);
+    //simple_printf2<, std::string, int>("aaa", "bbb", 1);
     simple_printf2("aaa", "bbb");
+    simple_printf2("aaa", "bbb", 1);
 }

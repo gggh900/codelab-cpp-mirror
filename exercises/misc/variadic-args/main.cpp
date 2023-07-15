@@ -2,13 +2,7 @@
 #include <iostream>
 #include <string> 
 
-//#define simple_printf_macro(...) simple_printf(__VA_ARGS__)
-#define DEBUG 1
-
-template <typename A=std::string, typename B=std::string, typename C=std::string>
-void simple_printf2(const A& s1 = "" , const B & s2 = "", const C & s3 = "") {
-    std::cout << s1 << " " << s2 << " " << s3 << std::endl;
-} 
+#include "template-1.hpp"
 
 int main()
 {

@@ -1,4 +1,6 @@
-// polymorphism, plain example.
+// polymorphism, plain example: Tuna nad Carp is derived from Fish. When calling makeFishSwim(), 
+// it is passed on as baseclass which behaves differently (based on derived base) inside the 
+// makeFishSwim().
 
 #include <iostream>
 using namespace std;

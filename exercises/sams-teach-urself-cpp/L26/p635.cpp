@@ -1,4 +1,4 @@
-// problem with conventional raw pointers too hard to track deallocation.
+// Create smart pointer with copy constructor and operator &, * and -> implemented. 
 #include <iostream>
 using namespace std;
 

@@ -1,3 +1,4 @@
+//Simple inheritance of Tuna and Carp class from Fish base class. 
 #include <iostream>
 using namespace std;
 

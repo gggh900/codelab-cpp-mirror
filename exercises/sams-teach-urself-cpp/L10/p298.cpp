@@ -1,3 +1,4 @@
+// multiple inheritance, inherits all 3 classes and their functions. 
 #include <iostream>
 using namespace std;
 

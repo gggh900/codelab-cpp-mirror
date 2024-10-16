@@ -1,3 +1,4 @@
+// simple inheritance. However it shows explicitly calling base class's Swim function instead of overriding function in child class. 
 #include <iostream>
 using namespace std;
 

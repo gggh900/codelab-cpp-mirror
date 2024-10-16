@@ -1,3 +1,4 @@
+// simple inheritance P275.cpp + passing parameters to base class/
 #include <iostream>
 using namespace std;
 

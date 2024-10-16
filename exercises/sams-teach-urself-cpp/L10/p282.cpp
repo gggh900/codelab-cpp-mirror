@@ -1,3 +1,4 @@
+// simple inheritance + passing parameters to base class (p279.cpp) + overriding base class function. 
 #include <iostream>
 using namespace std;
 

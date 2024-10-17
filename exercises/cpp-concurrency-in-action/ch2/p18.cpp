@@ -29,14 +29,15 @@ struct func {
         if (DEBUG == 1) {
             std::cout << "func::operator() entered..." << std::endl;
         }
+        /*
         for (unsigned j=0; j < 1000000 ; ++j) {
             if (j % 100000 == 0) {
                 std::cout << "loop idx j: " << j << ", i: " << i << std::endl;
             }
-        }
+        }*/
     }
 };
-int main() {
+void oops() {
     /*std::thread t(hello);
     background_task f;
     std::thread my_thread(f);
@@ -45,8 +46,10 @@ int main() {
     int some_local_state = 0;
     func my_func(some_local_state);
     std::thread my_thread(my_func);
-
     /*Detach() does nothing ?? not sure what happened.. join will print out j-loop.*/
     my_thread.detach();
     //my_thread.join();
+}
+int main() {
+    oops();
 }

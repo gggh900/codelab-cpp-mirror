@@ -1,5 +1,6 @@
 /* This is similar to p13.cpp except it is using example of callable object, in this case
 class with () operator defined */
+
 #include <iostream>
 #include <thread>
 
@@ -10,7 +11,7 @@ void hello() {
 class background_task {
     public:
         void operator()() const {
-            std::cout << "background_task::operator()() entered...";
+            std::cout << "background_task::operator()() entered...\n";
         }
 };
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 void hello() {
     std::cout << "Hello concurrent world.\n";
@@ -18,4 +19,6 @@ results in undefined behavior.
 */
     //t.join();
     t.detach();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
 }

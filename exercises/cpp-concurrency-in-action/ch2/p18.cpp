@@ -31,7 +31,7 @@ struct func {
         }
         for (unsigned j=0; j < 1000000 ; ++j) {
             if (j % 100000 == 0) {
-                std::cout << "j: " << j << std::endl;
+                std::cout << "loop idx j: " << j << ", i: " << i << std::endl;
             }
         }
     }

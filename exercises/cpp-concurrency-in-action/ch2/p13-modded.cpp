@@ -1,9 +1,17 @@
+/*tried doing interesting mod by inheriting std::thread as thread_dbg and inserting debugging messages*
+(INCOMPLETE!!)/
 #include <iostream>
 #include <thread>
-#include <chrono>
 
 void hello() {
     std::cout << "Hello concurrent world.\n";
+}
+
+class thread_dbg : public std::thread {
+    thread() {
+        std::thread() {
+        }
+    }
 }
 
 int main() {
@@ -19,6 +27,4 @@ results in undefined behavior.
 */
     //t.join();
     t.detach();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
 }

@@ -1,6 +1,8 @@
 /*Example from p24 is somewhat changed but idea is same. int used instead of widget_data 
 if int is passed as reference int i &, it results in compile error, not sure why. Only as a value
 it compiles. 
+With p24a (this file), once std::ref is used, compile error is eliminated. Still uncertain why 
+p24.cpp fails with data passed as reference. 
 */
 #include <iostream>
 #include <thread>

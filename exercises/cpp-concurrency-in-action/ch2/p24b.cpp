@@ -2,7 +2,7 @@
 Passing class member function as an argument.
 "...If you are familiar with the std::bind, the parameter passing semantics will be unsurprising, because
 both the operation of the std::thread constructor and the operation of std::bind are defined in terms of 
-same mechanism...??? Tjos ,eams tjat. fpr example, you can pass a member function pointer as the function, 
+same mechanism...??? This means that for example, you can pass a member function pointer as the function, 
 provided you supply a suitable pointer as first argument:
 */
 #include <iostream>

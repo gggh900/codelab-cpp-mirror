@@ -37,10 +37,11 @@ void f() {
     func my_func(some_local_state);
     std::thread t(my_func);
     try {
-        do_something_in_current_thread();
-    } catch(...) {
+        //do_something_in_current_thread();
+        throw(1);
+    } catch(int i) {
+        cout << "Exception!" << ": code: " << i << endl;    
         t.join();
-        throw;
     }
     t.join();
 }

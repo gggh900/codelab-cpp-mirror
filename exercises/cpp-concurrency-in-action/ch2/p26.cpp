@@ -1,18 +1,23 @@
 /*
 std::move example.
 */
+
 #include <iostream>
 #include <thread>
 #include <chrono>
-
+#define ENABLE_CHRONO 0
 using namespace std;
 void some_function() { 
     cout << "some_function entered...\n" ; 
-    this_thread::sleep_for(chrono::seconds(3));
+    
+    if (ENABLE_CHRONO == 1)
+        this_thread::sleep_for(chrono::seconds(3));
 }
 void some_other_function() { 
     cout << "some_other_function entered ...\n"; 
-    this_thread::sleep_for(chrono::seconds(3));
+
+    if (ENABLE_CHRONO == 1)
+        this_thread::sleep_for(chrono::seconds(3));
 }
 
 int main() {

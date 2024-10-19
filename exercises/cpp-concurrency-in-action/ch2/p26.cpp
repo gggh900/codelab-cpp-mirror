@@ -15,16 +15,14 @@ void some_other_function() { cout << "some_other_function entered ...\n"; }
 
 int main() {
     std::thread t1(some_function);
-    // t1
+    // t1: some_function
     std::thread t2=std::move(t1);
-    // t2
+    t2.join();
+    // t2: some_function
     t1=std::thread(some_other_function);
-    // t2, t1
+    // t2: some function, t1: some_other_function
+    t1.join();
     std::thread t3;
     t3=std::move(t2);
-    // t3, t1
-    t1.join();
-    t3.join();
-    //t1=std::move(t3);
-    //t1.join();
+    // t2: some function, t3: some_other_function
 }

@@ -45,6 +45,7 @@ void f() {
         t.join();
         throw;
     }
+    // this will make a difference between terminate() or proper exit.
     t.join();
 }
 int main() {

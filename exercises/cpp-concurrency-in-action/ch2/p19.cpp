@@ -26,6 +26,7 @@ struct func {
                 std::cout << "loop idx j: " << j << ", i: " << i << std::endl;
             }
         }
+        this_thread::sleep_for(chrono::seconds(3));
     }
 };
 
@@ -37,11 +38,12 @@ void f() {
     func my_func(some_local_state);
     std::thread t(my_func);
     try {
-        //do_something_in_current_thread();
-        throw(1);
-    } catch(int i) {
-        cout << "Exception!" << ": code: " << i << endl;    
+        do_something_in_current_thread();
+        //throw(1);
+    } catch(...) {
+        cout << "Exception!\n";
         t.join();
+        throw;
     }
     t.join();
 }

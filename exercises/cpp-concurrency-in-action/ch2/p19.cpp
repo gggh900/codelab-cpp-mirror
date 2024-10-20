@@ -6,17 +6,6 @@ class with () operator defined */
 
 using namespace std;
 
-void hello() {
-    std::cout << "Hello concurrent world.\n";
-}
-
-class background_task {
-    public:
-        void operator()() const {
-            std::cout << "background_task::operator()() entered...\n";
-        }
-};
-
 #define DEBUG 1
 struct func {
     int & i;
@@ -31,27 +20,34 @@ struct func {
         if (DEBUG == 1) {
             std::cout << "func::operator() entered..." << std::endl;
         }
-        /*
+
         for (unsigned j=0; j < 1000000 ; ++j) {
             if (j % 100000 == 0) {
                 std::cout << "loop idx j: " << j << ", i: " << i << std::endl;
             }
-        }*/
+        }
+        this_thread::sleep_for(chrono::seconds(3));
     }
 };
-void oops() {
-    /*std::thread t(hello);
-    background_task f;
-    std::thread my_thread(f);
-    */
 
-    int some_local_state = 0;
+void do_something_in_current_thread() {
+    cout << "do_something_in_current_thread() entered...\n";
+}
+void f() {
+    int some_local_state=0;
     func my_func(some_local_state);
-    std::thread my_thread(my_func);
-    /*Detach() does nothing ?? not sure what happened.. join will print out j-loop.*/
-    my_thread.detach();
-    //my_thread.join();
+    std::thread t(my_func);
+    try {
+        do_something_in_current_thread();
+        //throw(1);
+    } catch(...) {
+        cout << "Exception!\n";
+        t.join();
+        throw;
+    }
+    // this will make a difference between terminate() or proper exit.
+    t.join();
 }
 int main() {
-    oops();
+    f();
 }

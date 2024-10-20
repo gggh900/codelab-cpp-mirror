@@ -25,8 +25,8 @@ int main() {
     std::unique_ptr<big_object> p(new big_object);
     cout << "p managed pointer value: " << p.get() << endl;
     p->prepare_data(42);
-    //std::thread t(process_big_object, p); <-- tried to see if cout after t.join() will printer same address but huge compiler error.
-    std::thread t(process_big_object, std::move(p));
+    std::thread t(process_big_object, p); //<-- tried to see if cout after t.join() will printer same address but huge compiler error.
+    //std::thread t(process_big_object, std::move(p));
     t.join();
     cout << "p managed pointer value: " << p.get() << endl;
 }

@@ -5,9 +5,9 @@
 #include <stack>
 #include <mutex>
 
-srtuct empty_stack: std::exception {
+struct empty_stack: std::exception {
     const char * what() const throw();
-}
+};
 
 template <typename T> 
 class threadsafe_stack {
@@ -23,13 +23,13 @@ public:
         data=other.data;
     }
         
-    threadsafe_stack &  operator(const threadsafe_stack&) = delete; 
+    threadsafe_stack &  operator=(const threadsafe_stack&) = delete; 
     
-    void push(T new value) {
-        std::lock_guard<std::mutex< lock(m);
+    void push(T new_value) {
+        std::lock_guard<std::mutex> lock(m);
         data.push(new_value);
     }
-    std::shared_ptr<T pop() {
+    std::shared_ptr<T> pop() {
         std::lock_guard<std::mutex> lock(m);
     
         if(data.empty()) throw empty_stack();
@@ -41,7 +41,7 @@ public:
         std::lock_guard<std::mutex> lock(m);
         if(data.empty()) throw empty_stack();
         value=data.top();
-        data.pop()
+        data.pop();
     }
 
     bool empty() const {
@@ -49,6 +49,11 @@ public:
         return data.empty();
     }
     
+};
+
+int main() {
+    threadsafe_stack<int> s;
+    for (unsigned int i = 0 ; i < 10 ; i++ ) {
+        s.push(1);
+    }
 }
-
-

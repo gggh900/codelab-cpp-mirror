@@ -12,9 +12,31 @@ other cond var  example to try: https://en.cppreference.com/w/cpp/thread/conditi
 
 using namespace std;
 
+struct data_chunk
+{};
+
+data_chunk prepare_data()
+{
+    cout << __FUNCTION__ << " entered..." << endl;
+    return data_chunk();
+}
+
+void process(data_chunk&)
+{}
+
+bool is_last_chunk(data_chunk&)
+{
+    return true;
+}
+
 mutex mut;
 queue<data_chunk> data_queue;
 condition_variable data_cond;
+
+int more_data_to_prepare() {
+    cout << __FUNCTION__ << " entered..." << endl;
+    return false;
+}
 
 void data_preparation_thread() {
     while(!more_data_to_prepare()) {
@@ -36,10 +58,20 @@ void data_processing_thread() {
             if 1 - will stop waiting.
         */
         data_cond.wait(lk, []{return !data_queue.empty();});
+        data_chunk data = data_queue.front();
         data_queue.pop();
-        lk.unlock():
+        lk.unlock();
         process(data);
-        if (is_last+chunk(data))
-            breakl
+        if (is_last_chunk(data))
+            break;
     }    
 }
+
+int main() {
+    thread prep(data_preparation_thread);
+    thread processing(data_processing_thread);
+    prep.join();
+    processing.join();
+}
+
+

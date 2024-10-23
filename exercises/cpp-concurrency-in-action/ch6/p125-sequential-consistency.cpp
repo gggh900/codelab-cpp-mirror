@@ -20,14 +20,14 @@ void write_y()
 
 void read_x_then_y() 
 {
-    while(!x.load(std::memory_order_seq_cst))
+    while(!x.load(std::memory_order_seq_cst));
     if(y.load(std::memory_order_seq_cst))
         ++z;
 }
 
 void read_y_then_x() 
 {
-    while(!y.load(std::memory_order_seq_cst))
+    while(!y.load(std::memory_order_seq_cst));
     if(x.load(std::memory_order_seq_cst))
         ++z;
 }

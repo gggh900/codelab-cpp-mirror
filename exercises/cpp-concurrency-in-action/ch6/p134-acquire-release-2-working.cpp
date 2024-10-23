@@ -15,7 +15,7 @@ void write_x_then_y()
 }
 
 void read_y_then_x() {
-    while(!y.load(std::memory_order_acquire))
+    while(!y.load(std::memory_order_acquire));
     if(y.load(std::memory_order_relaxed))
         ++z;
 }

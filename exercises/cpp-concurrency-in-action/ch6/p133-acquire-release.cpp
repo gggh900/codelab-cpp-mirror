@@ -20,14 +20,14 @@ void write_y()
 
 void read_x_then_y() 
 {
-    while(!x.load(std::memory_order_release))
+    while(!x.load(std::memory_order_release));
     if(y.load(std::memory_order_release))
         ++z;
 }
 
 void read_y_then_x() 
 {
-    while(!y.load(std::memory_order_release))
+    while(!y.load(std::memory_order_release));
     if(x.load(std::memory_order_release))
         ++z;
 }

@@ -1,4 +1,9 @@
-/* Thread-safe stack implementation.*/
+/* Thread-safe stack implementation.*
+Unique_lock - provides bit more flexibility compared to lock_guard: allowed transfer of ownership (see p54 3.2.6)
+defer_lock - indicates that mutex is unlocked during construction.
+std::lock - is used to lock two mutex at once.
+
+*/
 
 #include <exception>
 #include <memory>

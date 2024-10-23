@@ -1,4 +1,7 @@
-/* Thread-safe stack implementation.*/
+/* Thread-safe stack implementation.
+lock_guard instead of <mutex_instance.lock()/unlock() - see p38 for reason to use:
+lock_guard - provides RAII 
+lock()/unlock() - have to remember to unlock on every possible error/exception scenario*/
 
 #include <exception>
 #include <memory>

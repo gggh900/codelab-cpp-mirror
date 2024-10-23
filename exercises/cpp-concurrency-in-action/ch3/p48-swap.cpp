@@ -1,4 +1,8 @@
-/* Thread-safe stack implementation.*/
+/* Thread-safe stack implementation.
+std::lock - is used to lock two mutex at once (see p48 1st paragraph)
+adopt_lock flag when used with lock_guard: to have lock object to manage the lock on a mutex (p43 see 3.2.6)
+In this example lock_a and lock_b of type lock_guard manage mutex from class X.
+*/
 
 #include <exception>
 #include <memory>

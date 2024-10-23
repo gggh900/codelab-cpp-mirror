@@ -10,7 +10,8 @@ using namespace std;
 class file {
     mutable mutex m;
     fstream myfile;
-    string filename = "reproduce-race.txt";
+    string basefilename="reproduce-race";
+    string filename = basefilename;
 
 public:
     void write_to_file(const string & s) {
@@ -31,8 +32,9 @@ public:
     void sum(int a, int b) {
         if (DEBUG == 1)
             cout << "sum entered with a=" << a << ", b=" << b << endl;
-
         for (unsigned int i = 0 ; i < 10000000; i ++ )  {
+            if (i % 1000000 == 0) 
+                this->filename = this->basefilename + "-" + to_string(i);
             string line = to_string(i) + ": " + to_string(a) + " + " + to_string(b) + " = " + to_string(a+b);
             this->write_to_file(line);
         }

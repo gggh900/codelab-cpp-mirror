@@ -24,7 +24,7 @@ public:
         m.unlock();
     }
 
-    void sum(int & a, int & b) {
+    void sum(int a, int b) {
         cout << "sum entered with a=" << a << ", b=" << b << endl;
         /*
         this->write_to_file(to_string(a));
@@ -51,12 +51,12 @@ int main() {
     int c = 3;
     int d = 4;
     file f;
+    /*
     thread ta(&file::sum1, &f);
     thread tb(&file::sum1, &f);
-    /*
+    */
     thread ta(&file::sum, &f, a, b);
     thread tb(&file::sum, &f, c, d);
-    */
     ta.join();
     tb.join();
 

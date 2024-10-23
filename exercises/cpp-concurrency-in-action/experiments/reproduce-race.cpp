@@ -10,29 +10,34 @@ using namespace std;
 class file {
     mutable mutex m;
     fstream myfile;
-    string filename = "output3.txt";
+    string filename = "reproduce-race.txt";
 
 public:
     void write_to_file(const string & s) {
-        if (DEBUG == 1) {
+        if (DEBUG == 1) 
             cout << "file::write_to_file() entered..." << endl;
-        }
+
         m.lock();
         this->myfile.open(filename, ios::app);
+        if (!this->myfile.is_open()) {
+            cout << "file open fail. " << endl;
+            m.unlock();
+        }
         this->myfile << s << endl;
         this->myfile.close();
         m.unlock();
     }
 
     void sum(int a, int b) {
-        cout << "sum entered with a=" << a << ", b=" << b << endl;
-        /*
-        this->write_to_file(to_string(a));
-        this->write_to_file(to_string(b));
-        int sum = a + b;
-        this->write_to_file(to_string(sum));
-        */
+        if (DEBUG == 1)
+            cout << "sum entered with a=" << a << ", b=" << b << endl;
+
+        for (unsigned int i = 0 ; i < 10000000; i ++ )  {
+            string line = to_string(i) + ": " + to_string(a) + " + " + to_string(b) + " = " + to_string(a+b);
+            this->write_to_file(line);
+        }
     }
+
     void sum1() {
         cout << "sum1() entered" << endl;
     }
@@ -48,8 +53,8 @@ int main() {
     // lock mutex, write op1+op2 value to file, unlock mutex
     int a = 1;
     int b = 2;
-    int c = 3;
-    int d = 4;
+    int c = 1;
+    int d = 2;
     file f;
     /*
     thread ta(&file::sum1, &f);

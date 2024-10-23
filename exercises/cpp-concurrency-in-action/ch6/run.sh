@@ -1,1 +1,1 @@
-../ch2/run.sh
+../run.sh

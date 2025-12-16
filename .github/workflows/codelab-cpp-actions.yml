@@ -1,13 +1,13 @@
 name: codelab-cpp-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.actor }} is testing cpp build and execution.
 on: [push]
 jobs:
-  check-bats-version:
+  exercises_sams-teach-urself-cpp:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install -g bats
-      - run: bats -v
+      - run: pushd exercises/sams-teach-urself-cpp
+      - run: for i in ./*.cpp ; do g++ $i.cpp -o $i.out && ./$.out ; done

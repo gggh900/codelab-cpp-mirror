@@ -1,0 +1,6 @@
+Pack examples using primitive c++ types.
+Unfortunately in tutorial page, those examples are not in under pack section:
+https://github.com/msgpack/msgpack-c/wiki/v2_0_cpp_packer
+but on tutorial's start/beginner page:
+https://github.com/msgpack/msgpack-c/wiki/v2_0_cpp_tutorial
+

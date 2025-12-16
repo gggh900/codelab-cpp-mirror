@@ -9,4 +9,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: pwd ; cd exercises/sams-teach-urself-cpp/L9 ; pwd; for i in ./*.cpp ; do echo '------------ $i --------------' ; g++ $i -o $i.out && ./$i.out ; done ; cd ../..
+      - run: pwd ; cd exercises/sams-teach-urself-cpp/L9 ; pwd; for i in ./*.cpp ; do echo '------------ ${i} --------------' ; g++ $i -o $i.out && ./$i.out ; done ; cd ../..

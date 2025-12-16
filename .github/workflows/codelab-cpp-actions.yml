@@ -9,5 +9,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: pushd exercises/sams-teach-urself-cpp
-      - run: for i in ./*.cpp ; do g++ $i.cpp -o $i.out && ./$.out ; done
+      - run: cd exercises/sams-teach-urself-cpp ; for i in ./*.cpp ; do g++ $i.cpp -o $i.out && ./$.out ; done ; cd ../..

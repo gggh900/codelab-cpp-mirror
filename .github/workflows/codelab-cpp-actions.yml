@@ -1,6 +1,6 @@
 name: codelab-cpp-actions
 run-name: ${{ github.actor }} is testing cpp build and execution.
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   exercises_sams-teach-urself-cpp:
     runs-on: ubuntu-latest
